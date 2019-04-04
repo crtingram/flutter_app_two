@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GridListWidget extends StatefulWidget {
+  static final mapWidth = 9;
+
   @override
   State createState() => new GridListWidgetState();
 }
@@ -18,10 +20,7 @@ class GridListWidgetState extends State<GridListWidget> {
           Expanded(
             child: SafeArea(
                 child: GridView.count(
-                    crossAxisCount: 16,
-                    mainAxisSpacing: 4.0,
-                    crossAxisSpacing: 4.0,
-                    padding: EdgeInsets.all(4.0),
+                    crossAxisCount: GridListWidget.mapWidth,
                     children: generateDungeon())),
           )
         ],
@@ -30,11 +29,25 @@ class GridListWidgetState extends State<GridListWidget> {
   }
 }
 
-List<DungeonTile> generateDungeon() {
-  List<DungeonTile> theTiles = new List<DungeonTile>();
-  const int width = 16;
+class DungeonTileWidget extends StatefulWidget {
+  @override
+  State createState() => DungeonTileState();
+}
+
+class DungeonTileState extends State<DungeonTileWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.green,
+    );
+  }
+}
+
+List<DungeonTileWidget> generateDungeon() {
+  List<DungeonTileWidget> theTiles = new List<DungeonTileWidget>();
+  int width = GridListWidget.mapWidth;
   for (int i = 0; i < width * width; i++) {
-    theTiles.add(new DungeonTile());
+    theTiles.add(new DungeonTileWidget());
   }
   return theTiles;
 }
