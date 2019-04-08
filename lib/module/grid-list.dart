@@ -27,6 +27,24 @@ class GridListWidgetState extends State<GridListWidget> {
           )
         ],
       ),
+      persistentFooterButtons: <Widget>[
+        RaisedButton(
+          textColor: Colors.tealAccent,
+          child: Icon(Icons.arrow_upward),
+        ),
+        RaisedButton(
+          textColor: Colors.tealAccent,
+          child: Icon(Icons.arrow_downward),
+        ),
+        RaisedButton(
+          textColor: Colors.tealAccent,
+          child: Icon(Icons.arrow_back),
+        ),
+        RaisedButton(
+          textColor: Colors.tealAccent,
+          child: Icon(Icons.arrow_forward),
+        ),
+      ],
     );
   }
 }
