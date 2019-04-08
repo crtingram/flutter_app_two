@@ -29,6 +29,8 @@ IconData getIconFromType(GameTileType type) {
   }
 }
 
+enum DIRECTIONS { NORTH, SOUTH, WEST, EAST }
+
 List<GameTile> generateMap() {
   return <GameTile>[
     GameTile.grassTile(contents: []),
@@ -71,7 +73,7 @@ List<GameTile> generateMap() {
     GameTile.waterTile(),
     GameTile.waterTile(),
     GameTile.waterTile(),
-    GameTile.waterTile(),
+    GameTile.grassTile(contents: []),
     GameTile.grassTile(contents: []),
     GameTile.rockTile(),
     GameTile.rockTile(),
@@ -79,5 +81,29 @@ List<GameTile> generateMap() {
     GameTile.rockTile(),
     GameTile.rockTile(),
     GameTile.rockTile(),
+    GameTile.waterTile(),
+    GameTile.waterTile(),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.waterTile(),
+    GameTile.waterTile(),
+    GameTile.waterTile(),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.rockTile(),
+    GameTile.rockTile(),
+    GameTile.waterTile(),
+    GameTile.rockTile(),
+    GameTile.rockTile(),
+    GameTile.rockTile(),
+    GameTile.waterTile(),
+    GameTile.waterTile(),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
   ];
 }
