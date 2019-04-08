@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_two/utils/MapUtilities.dart' as MapUtil;
+import 'package:flutter_app_two/models/GameTile.dart';
 
 class GridListWidget extends StatefulWidget {
   static final mapWidth = 9;
@@ -34,6 +36,21 @@ class DungeonTileWidget extends StatefulWidget {
   State createState() => DungeonTileState();
 }
 
+List<Widget> generateDungeon() {
+  List<Widget> theTiles = new List<Widget>();
+  for (var value in MapUtil.generateMap()) {
+    theTiles.add(getTileCard(value));
+  }
+  return theTiles;
+}
+
+Widget getTileCard(GameTile gt) {
+  return Card(
+    color: MapUtil.getColorFromType(gt.type),
+    child: Icon(MapUtil.getIconFromType(gt.type)),
+  );
+}
+
 class DungeonTileState extends State<DungeonTileWidget> {
   @override
   Widget build(BuildContext context) {
@@ -41,15 +58,6 @@ class DungeonTileState extends State<DungeonTileWidget> {
       color: Colors.green,
     );
   }
-}
-
-List<DungeonTileWidget> generateDungeon() {
-  List<DungeonTileWidget> theTiles = new List<DungeonTileWidget>();
-  int width = GridListWidget.mapWidth;
-  for (int i = 0; i < width * width; i++) {
-    theTiles.add(new DungeonTileWidget());
-  }
-  return theTiles;
 }
 
 class DungeonTile extends StatelessWidget {
