@@ -29,24 +29,32 @@ class GridListWidgetState extends State<GridListWidget> {
       ),
       persistentFooterButtons: <Widget>[
         RaisedButton(
+          onPressed: _movePlayer(MapUtil.DIRECTIONS.NORTH),
           textColor: Colors.tealAccent,
           child: Icon(Icons.arrow_upward),
         ),
         RaisedButton(
+          onPressed: _movePlayer(MapUtil.DIRECTIONS.SOUTH),
           textColor: Colors.tealAccent,
           child: Icon(Icons.arrow_downward),
         ),
         RaisedButton(
+          onPressed: _movePlayer(MapUtil.DIRECTIONS.WEST),
           textColor: Colors.tealAccent,
           child: Icon(Icons.arrow_back),
         ),
         RaisedButton(
+          onPressed: _movePlayer(MapUtil.DIRECTIONS.EAST),
           textColor: Colors.tealAccent,
           child: Icon(Icons.arrow_forward),
         ),
       ],
     );
   }
+}
+
+_movePlayer(MapUtil.DIRECTIONS dir) {
+  print(dir);
 }
 
 class DungeonTileWidget extends StatefulWidget {
