@@ -2,8 +2,7 @@ class GameTile {
   GameTileType type;
   List<GameTileContentType> contents;
 
-  GameTile({GameTileType type, List<GameTileContentType> contents})
-      : assert(contents.length < 4);
+  GameTile({this.type, this.contents}) : assert(contents.length < 4);
 
   GameTile.grassTile({List<GameTileContentType> contents})
       : this(type: GameTileType.grass, contents: contents);
