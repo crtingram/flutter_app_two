@@ -10,6 +10,8 @@ class GridListWidget extends StatefulWidget {
 }
 
 class GridListWidgetState extends State<GridListWidget> {
+  List<GameTile> gameTileData = MapUtil.generateMap();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +19,11 @@ class GridListWidgetState extends State<GridListWidget> {
         children: <Widget>[
           Expanded(
             child: SafeArea(
-                child: Card(
-              color: Colors.green,
+                child: GridView.count(
+              crossAxisCount: GridListWidget.mapWidth,
+              children: gameTileData.map<Widget>((GameTile tile) {
+                return MapTile(tile);
+              }).toList(),
             )),
           )
         ],
@@ -57,6 +62,14 @@ class GridListWidgetState extends State<GridListWidget> {
   }
 }
 
+List<MapTile> getMapTiles() {
+  List<MapTile> theMapTiles = new List<MapTile>();
+  MapUtil.generateMap().forEach((tileData) {
+    theMapTiles.add(new MapTile(tileData));
+  });
+  return theMapTiles;
+}
+
 _movePlayer(MapUtil.DIRECTIONS dir) {
   print(dir);
 }
@@ -74,4 +87,23 @@ Widget getTileCard(GameTile gt) {
     color: MapUtil.getColorFromType(gt.type),
     child: Icon(MapUtil.getIconFromType(gt.type)),
   );
+}
+
+class MapTile extends StatefulWidget {
+  final GameTile gameTile;
+
+  MapTile(this.gameTile);
+
+  @override
+  State createState() => new MapTileState();
+}
+
+class MapTileState extends State<MapTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: MapUtil.getColorFromType(widget.gameTile.type),
+      child: Icon(MapUtil.getIconFromType(widget.gameTile.type)),
+    );
+  }
 }
