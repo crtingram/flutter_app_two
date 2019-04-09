@@ -129,16 +129,21 @@ class MapTileState extends State<MapTile> {
     gameTile.contents.forEach((contentType) {
       switch (contentType) {
         case GameTileContentType.chest:
-          icons.add(Icon(Icons.business_center, size: iconSize));
+          icons.add(
+              Icon(Icons.business_center, size: iconSize, color: Colors.brown));
           break;
         case GameTileContentType.item:
-          icons.add(Icon(Icons.edit, size: iconSize));
+          icons.add(Icon(Icons.edit, size: iconSize, color: Colors.amber));
           break;
         case GameTileContentType.player:
-          icons.add(Icon(Icons.face, size: iconSize));
+          icons.add(Icon(Icons.face, size: iconSize, color: Colors.black87));
           break;
         case GameTileContentType.enemy:
-          icons.add(Icon(Icons.merge_type, size: iconSize));
+          icons.add(Icon(
+            Icons.merge_type,
+            size: iconSize,
+            color: Colors.red,
+          ));
           break;
 
         default:
