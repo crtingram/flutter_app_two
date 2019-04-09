@@ -29,24 +29,32 @@ class GridListWidgetState extends State<GridListWidget> {
       ),
       persistentFooterButtons: <Widget>[
         RaisedButton(
-          onPressed: _movePlayer(MapUtil.DIRECTIONS.NORTH),
-          textColor: Colors.tealAccent,
-          child: Icon(Icons.arrow_upward),
+          onPressed: () => _movePlayer(MapUtil.DIRECTIONS.WEST),
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
         ),
         RaisedButton(
-          onPressed: _movePlayer(MapUtil.DIRECTIONS.SOUTH),
-          textColor: Colors.tealAccent,
-          child: Icon(Icons.arrow_downward),
+          onPressed: () => _movePlayer(MapUtil.DIRECTIONS.NORTH),
+          child: Icon(
+            Icons.arrow_upward,
+            color: Colors.black,
+          ),
         ),
         RaisedButton(
-          onPressed: _movePlayer(MapUtil.DIRECTIONS.WEST),
-          textColor: Colors.tealAccent,
-          child: Icon(Icons.arrow_back),
+          onPressed: () => _movePlayer(MapUtil.DIRECTIONS.SOUTH),
+          child: Icon(
+            Icons.arrow_downward,
+            color: Colors.black,
+          ),
         ),
         RaisedButton(
-          onPressed: _movePlayer(MapUtil.DIRECTIONS.EAST),
-          textColor: Colors.tealAccent,
-          child: Icon(Icons.arrow_forward),
+          onPressed: () => _movePlayer(MapUtil.DIRECTIONS.EAST),
+          child: Icon(
+            Icons.arrow_forward,
+            color: Colors.black,
+          ),
         ),
       ],
     );
