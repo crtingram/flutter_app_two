@@ -60,6 +60,8 @@ class GridListWidgetState extends State<GridListWidget> {
       ],
     );
   }
+
+  _movePlayer(MapUtil.DIRECTIONS dir) {}
 }
 
 List<MapTile> getMapTiles() {
@@ -68,10 +70,6 @@ List<MapTile> getMapTiles() {
     theMapTiles.add(new MapTile(tileData));
   });
   return theMapTiles;
-}
-
-_movePlayer(MapUtil.DIRECTIONS dir) {
-  print(dir);
 }
 
 List<Widget> generateDungeon() {
@@ -84,7 +82,7 @@ List<Widget> generateDungeon() {
 
 Widget getTileCard(GameTile gt) {
   return Card(
-    color: MapUtil.getColorFromType(gt.type),
+    color: MapUtil.getMaterialColorFromType(gt.type),
     child: Icon(MapUtil.getIconFromType(gt.type)),
   );
 }
@@ -101,9 +99,19 @@ class MapTile extends StatefulWidget {
 class MapTileState extends State<MapTile> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: MapUtil.getColorFromType(widget.gameTile.type),
-      child: Icon(MapUtil.getIconFromType(widget.gameTile.type)),
+    return GridTile(
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+                width: 5.0,
+                color: MapUtil.getColorFromType(widget.gameTile.type))),
+        child: Icon(MapUtil.getIconFromType(widget.gameTile.type)),
+      ),
     );
+
+//    return Card(
+//      color: MapUtil.getColorFromType(widget.gameTile.type),
+//      child: Icon(MapUtil.getIconFromType(widget.gameTile.type)),
+//    );
   }
 }
