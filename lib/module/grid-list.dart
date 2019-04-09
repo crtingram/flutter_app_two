@@ -63,8 +63,7 @@ class GridListWidgetState extends State<GridListWidget> {
 
   _movePlayer(MapUtil.DIRECTIONS dir) {
     setState(() {
-      gameTileData[0].contents = [GameTileContentType.chest];
-      print(gameTileData[0].contents);
+      gameTileData[0].contents.add(GameTileContentType.player);
     });
   }
 }
@@ -105,8 +104,48 @@ class MapTileState extends State<MapTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: MapUtil.getColorFromType(widget.gameTile.type),
-      child: Icon(MapUtil.getIconFromType(widget.gameTile.type)),
-    );
+        color: MapUtil.getColorFromType(widget.gameTile.type),
+        child: GridView.count(
+          crossAxisCount: 2,
+          children: createIconFromContents(widget.gameTile),
+        ));
+  }
+
+  List<Widget> createIconFromContents(GameTile gameTile) {
+    List<Widget> icons = new List<Widget>();
+
+    num iconSize = (38 / gameTile.contents.length);
+
+    if (gameTile.type == GameTileType.rock) {
+      icons.add(Icon(Icons.change_history, size: iconSize));
+      return icons;
+    }
+
+    if (gameTile.type == GameTileType.water) {
+      icons.add(Icon(Icons.invert_colors, size: iconSize));
+      return icons;
+    }
+
+    gameTile.contents.forEach((contentType) {
+      switch (contentType) {
+        case GameTileContentType.chest:
+          icons.add(Icon(Icons.business_center, size: iconSize));
+          break;
+        case GameTileContentType.item:
+          icons.add(Icon(Icons.edit, size: iconSize));
+          break;
+        case GameTileContentType.player:
+          icons.add(Icon(Icons.face, size: iconSize));
+          break;
+        case GameTileContentType.enemy:
+          icons.add(Icon(Icons.merge_type, size: iconSize));
+          break;
+
+        default:
+          throw Exception("Content Type does not exist");
+      }
+    });
+
+    return icons;
   }
 }

@@ -19,4 +19,4 @@ class GameTile {
 
 enum GameTileType { grass, rock, water }
 
-enum GameTileContentType { enemy, chest, empty, item, rock, water }
+enum GameTileContentType { enemy, chest, empty, item, rock, water, player }
