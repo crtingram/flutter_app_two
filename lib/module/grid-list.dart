@@ -13,17 +13,13 @@ class GridListWidgetState extends State<GridListWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Appo Bar'),
-        actions: <Widget>[],
-      ),
       body: Column(
         children: <Widget>[
           Expanded(
             child: SafeArea(
-                child: GridView.count(
-                    crossAxisCount: GridListWidget.mapWidth,
-                    children: generateDungeon())),
+                child: Card(
+              color: Colors.green,
+            )),
           )
         ],
       ),
@@ -65,11 +61,6 @@ _movePlayer(MapUtil.DIRECTIONS dir) {
   print(dir);
 }
 
-class DungeonTileWidget extends StatefulWidget {
-  @override
-  State createState() => DungeonTileState();
-}
-
 List<Widget> generateDungeon() {
   List<Widget> theTiles = new List<Widget>();
   for (var value in MapUtil.generateMap()) {
@@ -83,22 +74,4 @@ Widget getTileCard(GameTile gt) {
     color: MapUtil.getColorFromType(gt.type),
     child: Icon(MapUtil.getIconFromType(gt.type)),
   );
-}
-
-class DungeonTileState extends State<DungeonTileWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.green,
-    );
-  }
-}
-
-class DungeonTile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GridTile(
-      child: Icon(Icons.crop_free),
-    );
-  }
 }
