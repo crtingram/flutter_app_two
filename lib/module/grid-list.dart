@@ -82,7 +82,7 @@ List<Widget> generateDungeon() {
 
 Widget getTileCard(GameTile gt) {
   return Card(
-    color: MapUtil.getMaterialColorFromType(gt.type),
+    color: MapUtil.getColorFromType(gt.type),
     child: Icon(MapUtil.getIconFromType(gt.type)),
   );
 }
