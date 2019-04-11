@@ -4,9 +4,6 @@ import 'package:flutter_app_two/models/GameTile.dart';
 import 'package:flutter_app_two/models/Actors.dart';
 
 class GridListWidget extends StatefulWidget {
-  static final mapWidth = 9;
-  static final mapHeight = 9;
-
   @override
   State createState() => new GridListWidgetState();
 }
@@ -17,8 +14,8 @@ class GridListWidgetState extends State<GridListWidget> {
 
   GridListWidgetState() {
     gameTileData = MapUtil.generateMap();
-    player = Player(Point(0, 0));
-    updatePlayerIcon(convertTwoDimToOne(player.point));
+    player = Player(Point(2, 0));
+    updatePlayerIconLocation(convertTwoDimToOne(player.point));
   }
 
   @override
@@ -50,7 +47,7 @@ class GridListWidgetState extends State<GridListWidget> {
           ),
           Expanded(
             child: GridView.count(
-              crossAxisCount: GridListWidget.mapWidth,
+              crossAxisCount: MapUtil.mapWidth,
               children: gameTileData.map<Widget>((GameTile tile) {
                 return MapTile(tile);
               }).toList(),
@@ -87,9 +84,18 @@ class GridListWidgetState extends State<GridListWidget> {
             color: Colors.black,
           ),
         ),
+        RaisedButton(
+          onPressed: _contextButton,
+          child: Icon(
+            player.playerContext.getIconData(),
+            color: Colors.black,
+          ),
+        )
       ],
     ));
   }
+
+  _contextButton() {}
 
   _movePlayer(MapUtil.DIRECTIONS dir) {
     setState(() {
@@ -114,8 +120,50 @@ class GridListWidgetState extends State<GridListWidget> {
       player.point = newPoint;
 
       removePlayerIcon(oldTileIndex);
-      updatePlayerIcon(newTileIndex);
+      updatePlayerIconLocation(newTileIndex);
+
+      _updatePlayerContext();
     });
+  }
+
+  _updatePlayerContext() {
+    Point playerPoint = player.point;
+
+    List<GameTile> surroundingTiles = List();
+    surroundingTiles.add(getTileAbove(playerPoint));
+    surroundingTiles.add(getTileBelow(playerPoint));
+    surroundingTiles.add(getTileLeft(playerPoint));
+    surroundingTiles.add(getTileRight(playerPoint));
+
+    List<GameTileContentType> tileTypes = List();
+
+    surroundingTiles.forEach((type) {
+      tileTypes.addAll(type?.contents);
+      print(type?.contents);
+    });
+
+
+    player.playerContext = MapUtil.attackContext;
+  }
+
+  GameTile getTileAbove(Point point) {
+    point.y -= 1;
+    return getTile(convertTwoDimToOne(point));
+  }
+
+  GameTile getTileBelow(Point point) {
+    point.y += 1;
+    return getTile(convertTwoDimToOne(point));
+  }
+
+  GameTile getTileLeft(Point point) {
+    point.x -= 1;
+    return getTile(convertTwoDimToOne(point));
+  }
+
+  GameTile getTileRight(Point point) {
+    point.x += 1;
+    return getTile(convertTwoDimToOne(point));
   }
 
   double _updateScreenWidth() {
@@ -137,7 +185,7 @@ class GridListWidgetState extends State<GridListWidget> {
     gameTileData[index].contents.remove(GameTileContentType.player);
   }
 
-  void updatePlayerIcon(int index) {
+  void updatePlayerIconLocation(int index) {
     gameTileData[index].contents.add(GameTileContentType.player);
   }
 
@@ -157,21 +205,21 @@ class GridListWidgetState extends State<GridListWidget> {
   bool checkIfValidPoints(Point point) {
     return point.x < 0 ||
         point.y < 0 ||
-        point.x > (GridListWidget.mapWidth - 1) ||
-        point.y > (GridListWidget.mapHeight - 1);
+        point.x > (MapUtil.mapWidth - 1) ||
+        point.y > (MapUtil.mapHeight - 1);
   }
 }
 
 int convertTwoDimToOne(Point point) {
   // i = x + width*y;
-  return point.x + GridListWidget.mapWidth * point.y;
+  return point.x + MapUtil.mapWidth * point.y;
 }
 
 Point convertOneDimTwo(int i) {
   // x = i % width;
   // y = i / width;
-  int x = i % GridListWidget.mapWidth;
-  int y = (i / GridListWidget.mapWidth).floor();
+  int x = i % MapUtil.mapWidth;
+  int y = (i / MapUtil.mapWidth).floor();
 
   return Point(x, y);
 }

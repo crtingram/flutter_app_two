@@ -32,6 +32,44 @@ IconData getIconFromType(GameTileType type) {
 
 enum DIRECTIONS { NORTH, SOUTH, WEST, EAST }
 
+enum CONTEXT { search, key, attack }
+
+class Context {
+  String description;
+  CONTEXT contextType;
+  int priority;
+
+  IconData getIconData() {
+    return getContextIcon(this.contextType);
+  }
+
+  Context({this.description, this.contextType, this.priority});
+}
+
+Context searchContext = Context(
+    description: 'Search Area', contextType: CONTEXT.search, priority: 30);
+Context keyContext =
+    Context(description: 'Open Chest', contextType: CONTEXT.key, priority: 50);
+Context attackContext =
+    Context(description: 'Attack', contextType: CONTEXT.attack, priority: 100);
+
+IconData getContextIcon(CONTEXT context) {
+  switch (context) {
+    case CONTEXT.search:
+      return Icons.search;
+      break;
+    case CONTEXT.key:
+      return Icons.vpn_key;
+      break;
+    case CONTEXT.attack:
+      return Icons.colorize;
+      break;
+
+    default:
+      return Icons.search;
+  }
+}
+
 List<GameTile> generateMap() {
   return <GameTile>[
     GameTile.grassTile(contents: []),

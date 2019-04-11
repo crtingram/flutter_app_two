@@ -31,6 +31,8 @@ class Player extends Entity {
   int maxHP = 10;
   int attackPwr = 5;
 
+  MapUtil.Context playerContext = MapUtil.searchContext;
+
   List<Item> items;
 
   Player(Point point) : super(point);
