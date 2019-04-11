@@ -168,29 +168,6 @@ createNewPoint(Point oldPoint, MapUtil.DIRECTIONS direction) {
   return newPoint;
 }
 
-List<MapTile> getMapTiles() {
-  List<MapTile> theMapTiles = new List<MapTile>();
-  MapUtil.generateMap().forEach((tileData) {
-    theMapTiles.add(new MapTile(tileData));
-  });
-  return theMapTiles;
-}
-
-List<Widget> generateDungeon() {
-  List<Widget> theTiles = new List<Widget>();
-  for (var value in MapUtil.generateMap()) {
-    theTiles.add(getTileCard(value));
-  }
-  return theTiles;
-}
-
-Widget getTileCard(GameTile gt) {
-  return Card(
-    color: MapUtil.getColorFromType(gt.type),
-    child: Icon(MapUtil.getIconFromType(gt.type)),
-  );
-}
-
 class MapTile extends StatefulWidget {
   final GameTile gameTile;
 
