@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_two/utils/MapUtilities.dart' as MapUtil;
 import 'package:flutter_app_two/models/GameTile.dart';
+import 'package:flutter_app_two/models/Actors.dart';
 
 class GridListWidget extends StatefulWidget {
   static final mapWidth = 9;
@@ -8,20 +9,6 @@ class GridListWidget extends StatefulWidget {
 
   @override
   State createState() => new GridListWidgetState();
-}
-
-class Point {
-  int x, y;
-
-  Point(this.x, this.y);
-}
-
-class Player {
-  Point point;
-  int hp = 10;
-  int maxHP = 10;
-
-  Player(this.point);
 }
 
 class GridListWidgetState extends State<GridListWidget> {
@@ -106,7 +93,6 @@ class GridListWidgetState extends State<GridListWidget> {
 
   _movePlayer(MapUtil.DIRECTIONS dir) {
     setState(() {
-
       Point oldPoint = player.point;
       int oldTileIndex = convertTwoDimToOne(oldPoint);
 

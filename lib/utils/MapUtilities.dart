@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/GameTile.dart';
 
-/// How do I make top level functions.
+final int mapWidth = 9;
+final int mapHeight = 9;
 
 Color getColorFromType(GameTileType type) {
   switch (type) {
