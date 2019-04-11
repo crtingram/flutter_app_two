@@ -106,5 +106,14 @@ List<GameTile> generateMap() {
     GameTile.grassTile(contents: []),
     GameTile.grassTile(contents: [GameTileContentType.enemy]),
     GameTile.grassTile(contents: []),
+    GameTile.rockTile(),
+    GameTile.rockTile(),
+    GameTile.rockTile(),
+    GameTile.waterTile(),
+    GameTile.waterTile(),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: []),
+    GameTile.grassTile(contents: [GameTileContentType.enemy]),
+    GameTile.grassTile(contents: []),
   ];
 }

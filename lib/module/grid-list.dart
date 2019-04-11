@@ -4,13 +4,29 @@ import 'package:flutter_app_two/models/GameTile.dart';
 
 class GridListWidget extends StatefulWidget {
   static final mapWidth = 9;
+  static final mapHeight = 9;
 
   @override
   State createState() => new GridListWidgetState();
 }
 
+class Point {
+  int x, y;
+
+  Point(this.x, this.y);
+}
+
+class Player {
+  Point point;
+  int hp = 10;
+
+  Player(this.point);
+}
+
 class GridListWidgetState extends State<GridListWidget> {
   List<GameTile> gameTileData = MapUtil.generateMap();
+
+  Player player = Player(Point(0, 0));
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +79,76 @@ class GridListWidgetState extends State<GridListWidget> {
 
   _movePlayer(MapUtil.DIRECTIONS dir) {
     setState(() {
-      gameTileData[0].contents.add(GameTileContentType.player);
+      Point oldPoint = player.point;
+      int oldTileIndex = convertTwoDimToOne(oldPoint);
+
+      Point newPoint = createNewPoint(oldPoint, dir);
+
+      if (newPoint.x < 0 ||
+          newPoint.y < 0 ||
+          newPoint.x > (GridListWidget.mapWidth - 1) ||
+          newPoint.y > (GridListWidget.mapWidth - 1)) {
+        print("Illegal Move");
+        return;
+      }
+
+      int newTileIndex = convertTwoDimToOne(newPoint);
+
+      GameTile newTile = getTile(newTileIndex);
+
+      player.point = newPoint;
+
+      removePlayerIcon(oldTileIndex);
+      updatePlayerIcon(newTileIndex);
     });
   }
+
+  GameTile getTile(int index) {
+    return gameTileData[index];
+  }
+
+  void removePlayerIcon(int index) {
+    gameTileData[index].contents.remove(GameTileContentType.player);
+  }
+
+  void updatePlayerIcon(int index) {
+    gameTileData[index].contents.add(GameTileContentType.player);
+  }
+}
+
+int convertTwoDimToOne(Point point) {
+  // i = x + width*y;
+  return point.x + GridListWidget.mapWidth * point.y;
+}
+
+Point convertOneDimTwo(int i) {
+  // x = i % width;
+  // y = i / width;
+  int x = i % GridListWidget.mapWidth;
+  int y = (i / GridListWidget.mapWidth).floor();
+
+  return Point(x, y);
+}
+
+createNewPoint(Point oldPoint, MapUtil.DIRECTIONS direction) {
+  Point newPoint = Point(oldPoint.x, oldPoint.y);
+
+  switch (direction) {
+    case MapUtil.DIRECTIONS.WEST:
+      newPoint.x -= 1;
+      break;
+    case MapUtil.DIRECTIONS.NORTH:
+      newPoint.y -= 1;
+      break;
+    case MapUtil.DIRECTIONS.SOUTH:
+      newPoint.y += 1;
+      break;
+    case MapUtil.DIRECTIONS.EAST:
+      newPoint.x += 1;
+      break;
+  }
+
+  return newPoint;
 }
 
 List<MapTile> getMapTiles() {
