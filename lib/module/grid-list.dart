@@ -19,28 +19,55 @@ class Point {
 class Player {
   Point point;
   int hp = 10;
+  int maxHP = 10;
 
   Player(this.point);
 }
 
 class GridListWidgetState extends State<GridListWidget> {
-  List<GameTile> gameTileData = MapUtil.generateMap();
+  List<GameTile> gameTileData;
+  Player player;
 
-  Player player = Player(Point(0, 0));
+  GridListWidgetState() {
+    gameTileData = MapUtil.generateMap();
+    player = Player(Point(0, 0));
+    updatePlayerIcon(convertTwoDimToOne(player.point));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    double screenWidth = _updateScreenWidth();
+
+    return SafeArea(
+        child: Scaffold(
       body: Column(
         children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                height: 20,
+                width: screenWidth,
+                child: Text(
+                  'HP ' + player.hp.toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                decoration: new BoxDecoration(
+                    gradient: new LinearGradient(
+                        colors: [Colors.red, Colors.red],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(0.5, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp)),
+              ),
+            ],
+          ),
           Expanded(
-            child: SafeArea(
-                child: GridView.count(
+            child: GridView.count(
               crossAxisCount: GridListWidget.mapWidth,
               children: gameTileData.map<Widget>((GameTile tile) {
                 return MapTile(tile);
               }).toList(),
-            )),
+            ),
           )
         ],
       ),
@@ -74,11 +101,12 @@ class GridListWidgetState extends State<GridListWidget> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   _movePlayer(MapUtil.DIRECTIONS dir) {
     setState(() {
+
       Point oldPoint = player.point;
       int oldTileIndex = convertTwoDimToOne(oldPoint);
 
@@ -102,6 +130,17 @@ class GridListWidgetState extends State<GridListWidget> {
       removePlayerIcon(oldTileIndex);
       updatePlayerIcon(newTileIndex);
     });
+  }
+
+  double _updateScreenWidth() {
+    double newWidth;
+
+    if (player.hp > 0) {
+      newWidth = MediaQuery.of(context).size.width * (player.hp / player.maxHP);
+    } else {
+      newWidth = 40.0;
+    }
+    return newWidth;
   }
 
   GameTile getTile(int index) {
@@ -135,7 +174,6 @@ class GridListWidgetState extends State<GridListWidget> {
         point.x > (GridListWidget.mapWidth - 1) ||
         point.y > (GridListWidget.mapHeight - 1);
   }
-
 }
 
 int convertTwoDimToOne(Point point) {
