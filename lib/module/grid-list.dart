@@ -84,10 +84,7 @@ class GridListWidgetState extends State<GridListWidget> {
 
       Point newPoint = createNewPoint(oldPoint, dir);
 
-      if (newPoint.x < 0 ||
-          newPoint.y < 0 ||
-          newPoint.x > (GridListWidget.mapWidth - 1) ||
-          newPoint.y > (GridListWidget.mapHeight - 1)) {
+      if (checkIfValidPoints(newPoint)) {
         print("Illegal Move");
         return;
       }
@@ -131,6 +128,14 @@ class GridListWidgetState extends State<GridListWidget> {
 
     return canMove;
   }
+
+  bool checkIfValidPoints(Point point) {
+    return point.x < 0 ||
+        point.y < 0 ||
+        point.x > (GridListWidget.mapWidth - 1) ||
+        point.y > (GridListWidget.mapHeight - 1);
+  }
+
 }
 
 int convertTwoDimToOne(Point point) {
