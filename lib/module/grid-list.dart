@@ -87,14 +87,18 @@ class GridListWidgetState extends State<GridListWidget> {
       if (newPoint.x < 0 ||
           newPoint.y < 0 ||
           newPoint.x > (GridListWidget.mapWidth - 1) ||
-          newPoint.y > (GridListWidget.mapWidth - 1)) {
+          newPoint.y > (GridListWidget.mapHeight - 1)) {
         print("Illegal Move");
         return;
       }
 
       int newTileIndex = convertTwoDimToOne(newPoint);
-
       GameTile newTile = getTile(newTileIndex);
+
+      if (!canMoveOverTile(newTile)) {
+        print("Cannot move over tile.");
+        return;
+      }
 
       player.point = newPoint;
 
@@ -113,6 +117,19 @@ class GridListWidgetState extends State<GridListWidget> {
 
   void updatePlayerIcon(int index) {
     gameTileData[index].contents.add(GameTileContentType.player);
+  }
+
+  bool canMoveOverTile(GameTile tile) {
+    bool canMove = true;
+
+    tile.contents.forEach((tileType) {
+      if (tileType == GameTileContentType.rock ||
+          tileType == GameTileContentType.water) {
+        canMove = false;
+      }
+    });
+
+    return canMove;
   }
 }
 
