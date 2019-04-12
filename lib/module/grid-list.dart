@@ -127,8 +127,8 @@ class GridListWidgetState extends State<GridListWidget> {
   }
 
   _updatePlayerContext(Point point) {
-
     List<GameTile> surroundingTiles = List();
+    surroundingTiles.add(getCurrentTile(point));
     surroundingTiles.add(getTileAbove(point));
     surroundingTiles.add(getTileBelow(point));
     surroundingTiles.add(getTileLeft(point));
@@ -138,11 +138,23 @@ class GridListWidgetState extends State<GridListWidget> {
 
     surroundingTiles.forEach((type) {
       tileTypes.addAll(type?.contents);
-      print(type?.contents);
     });
 
+    MapUtil.Context newContext;
 
-    player.playerContext = MapUtil.attackContext;
+    if (tileTypes.contains(GameTileContentType.enemy)) {
+      newContext = MapUtil.attackContext;
+    } else if (tileTypes.contains(GameTileContentType.chest)) {
+      newContext = MapUtil.keyContext;
+    } else {
+      newContext = MapUtil.searchContext;
+    }
+
+    player.playerContext = newContext;
+  }
+
+  GameTile getCurrentTile(Point point) {
+    return getTile(convertTwoDimToOne(point));
   }
 
   GameTile getTileAbove(Point point) {
