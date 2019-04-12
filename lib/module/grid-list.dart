@@ -122,18 +122,17 @@ class GridListWidgetState extends State<GridListWidget> {
       removePlayerIcon(oldTileIndex);
       updatePlayerIconLocation(newTileIndex);
 
-      _updatePlayerContext();
+      _updatePlayerContext(newPoint);
     });
   }
 
-  _updatePlayerContext() {
-    Point playerPoint = player.point;
+  _updatePlayerContext(Point point) {
 
     List<GameTile> surroundingTiles = List();
-    surroundingTiles.add(getTileAbove(playerPoint));
-    surroundingTiles.add(getTileBelow(playerPoint));
-    surroundingTiles.add(getTileLeft(playerPoint));
-    surroundingTiles.add(getTileRight(playerPoint));
+    surroundingTiles.add(getTileAbove(point));
+    surroundingTiles.add(getTileBelow(point));
+    surroundingTiles.add(getTileLeft(point));
+    surroundingTiles.add(getTileRight(point));
 
     List<GameTileContentType> tileTypes = List();
 
@@ -147,23 +146,23 @@ class GridListWidgetState extends State<GridListWidget> {
   }
 
   GameTile getTileAbove(Point point) {
-    point.y -= 1;
-    return getTile(convertTwoDimToOne(point));
+    Point abovePoint = createNewPoint(point, MapUtil.DIRECTIONS.NORTH);
+    return getTile(convertTwoDimToOne(abovePoint));
   }
 
   GameTile getTileBelow(Point point) {
-    point.y += 1;
-    return getTile(convertTwoDimToOne(point));
+    Point belowPoint = createNewPoint(point, MapUtil.DIRECTIONS.SOUTH);
+    return getTile(convertTwoDimToOne(belowPoint));
   }
 
   GameTile getTileLeft(Point point) {
-    point.x -= 1;
-    return getTile(convertTwoDimToOne(point));
+    Point leftPoint = createNewPoint(point, MapUtil.DIRECTIONS.EAST);
+    return getTile(convertTwoDimToOne(leftPoint));
   }
 
   GameTile getTileRight(Point point) {
-    point.x += 1;
-    return getTile(convertTwoDimToOne(point));
+    Point rightPoint = createNewPoint(point, MapUtil.DIRECTIONS.WEST);
+    return getTile(convertTwoDimToOne(rightPoint));
   }
 
   double _updateScreenWidth() {
