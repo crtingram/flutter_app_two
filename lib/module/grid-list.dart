@@ -121,8 +121,6 @@ class GridListWidgetState extends State<GridListWidget> {
 
       removePlayerIcon(oldTileIndex);
       updatePlayerIconLocation(newTileIndex);
-
-      _updatePlayerContext(newPoint);
     });
   }
 
@@ -159,21 +157,25 @@ class GridListWidgetState extends State<GridListWidget> {
 
   GameTile getTileAbove(Point point) {
     Point abovePoint = createNewPoint(point, MapUtil.DIRECTIONS.NORTH);
+    if (checkIfValidPoints(abovePoint)) return GameTile.grassTileEmpty();
     return getTile(convertTwoDimToOne(abovePoint));
   }
 
   GameTile getTileBelow(Point point) {
     Point belowPoint = createNewPoint(point, MapUtil.DIRECTIONS.SOUTH);
+    if (checkIfValidPoints(belowPoint)) return GameTile.grassTileEmpty();
     return getTile(convertTwoDimToOne(belowPoint));
   }
 
   GameTile getTileLeft(Point point) {
     Point leftPoint = createNewPoint(point, MapUtil.DIRECTIONS.EAST);
+    if (checkIfValidPoints(leftPoint)) return GameTile.grassTileEmpty();
     return getTile(convertTwoDimToOne(leftPoint));
   }
 
   GameTile getTileRight(Point point) {
     Point rightPoint = createNewPoint(point, MapUtil.DIRECTIONS.WEST);
+    if (checkIfValidPoints(rightPoint)) return GameTile.grassTileEmpty();
     return getTile(convertTwoDimToOne(rightPoint));
   }
 
@@ -198,6 +200,8 @@ class GridListWidgetState extends State<GridListWidget> {
 
   void updatePlayerIconLocation(int index) {
     gameTileData[index].contents.add(GameTileContentType.player);
+    Point playerPoint = convertOneDimTwo(index);
+    _updatePlayerContext(playerPoint);
   }
 
   bool canMoveOverTile(GameTile tile) {
