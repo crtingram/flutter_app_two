@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_two/utils/MapUtilities.dart' as MapUtil;
+import 'package:flutter_app_two/models/GameTile.dart';
 
 class Game extends StatefulWidget {
   @override
@@ -6,8 +8,16 @@ class Game extends StatefulWidget {
 }
 
 class GameState extends State<Game> {
+  List<GameTile> gameTileData;
+
+  GameState() {
+    gameTileData = MapUtil.generateMap();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -17,6 +27,7 @@ class GameState extends State<Game> {
               children: <Widget>[
                 Container(
                   height: 20,
+                  width: MediaQuery.of(context).size.width,
                   child: Text(
                     'HP ',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -30,7 +41,19 @@ class GameState extends State<Game> {
                           tileMode: TileMode.clamp)),
                 ),
               ],
-            )
+            ),
+            Flexible(
+                child: GridView.extent(
+              maxCrossAxisExtent: screenWidth / 9,
+              children: gameTileData.map<Widget>((GameTile tile) {
+                return GridTile(
+                  child: Container(
+                    color: Colors.green,
+                    child: Text(''),
+                  ),
+                );
+              }).toList(),
+            ))
           ],
         ),
       ),
