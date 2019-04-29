@@ -7,8 +7,9 @@ class Game extends StatefulWidget {
   State createState() => GameState();
 }
 
-class GameState extends State<Game> {
+class GameState extends State<Game> with SingleTickerProviderStateMixin {
   List<GameTile> gameTileData;
+  TabController _tabController;
 
   GameState() {
     gameTileData = MapUtil.generateMap();
@@ -29,7 +30,7 @@ class GameState extends State<Game> {
                   height: 20,
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    'HP ',
+                    ' HP ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   decoration: new BoxDecoration(
@@ -43,20 +44,38 @@ class GameState extends State<Game> {
               ],
             ),
             Flexible(
-                child: GridView.extent(
-              maxCrossAxisExtent: screenWidth / 9,
-              children: gameTileData.map<Widget>((GameTile tile) {
-                return GridTile(
-                  child: Container(
-                    color: Colors.green,
-                    child: Text(''),
+              child: GridView.extent(
+                maxCrossAxisExtent: screenWidth / 9,
+                children: gameTileData.map<Widget>((GameTile tile) {
+                  return GridTile(
+                    child: Container(
+                      color: Colors.green,
+                      child: Text('ASDF'),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            Flexible(
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: ListTile(
+                      title: Text('title'),
+                      subtitle: Text('Subtitle'),
+                      contentPadding: EdgeInsets.all(0.0),
+                      dense: true,
+                    ),
                   ),
-                );
-              }).toList(),
-            ))
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+
+  getScreenWidth(BuildContext context) {}
 }
