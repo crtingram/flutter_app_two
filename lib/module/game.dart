@@ -9,7 +9,6 @@ class Game extends StatefulWidget {
 
 class GameState extends State<Game> with SingleTickerProviderStateMixin {
   List<GameTile> gameTileData;
-  TabController _tabController;
 
   GameState() {
     gameTileData = MapUtil.generateMap();
@@ -17,7 +16,7 @@ class GameState extends State<Game> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -44,6 +43,7 @@ class GameState extends State<Game> with SingleTickerProviderStateMixin {
               ],
             ),
             Flexible(
+              flex: 2,
               child: GridView.extent(
                 maxCrossAxisExtent: screenWidth / 9,
                 children: gameTileData.map<Widget>((GameTile tile) {
@@ -71,11 +71,50 @@ class GameState extends State<Game> with SingleTickerProviderStateMixin {
                 ],
               ),
             ),
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () => print('test'),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                ),
+                RaisedButton(
+//                onPressed: () => _movePlayer(MapUtil.DIRECTIONS.NORTH),
+                  child: Icon(
+                    Icons.arrow_upward,
+                    color: Colors.black,
+                  ),
+                ),
+                RaisedButton(
+//                onPressed: () => _movePlayer(MapUtil.DIRECTIONS.SOUTH),
+                  child: Icon(
+                    Icons.arrow_downward,
+                    color: Colors.black,
+                  ),
+                ),
+                RaisedButton(
+//                onPressed: () => _movePlayer(MapUtil.DIRECTIONS.EAST),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                  ),
+                ),
+                Expanded(
+                  child: RaisedButton(
+//                onPressed: _contextButton,
+                    child: Icon(
+                      Icons.face,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
-
-  getScreenWidth(BuildContext context) {}
 }
