@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/GameTile.dart';
+import 'package:flutter_app_two/old/GameTile.dart';
 
 final int mapWidth = 9;
 final int mapHeight = 9;

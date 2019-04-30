@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_two/utils/MapUtilities.dart' as MapUtil;
-import 'package:flutter_app_two/models/GameTile.dart';
+import 'package:flutter_app_two/old/MapUtilities.dart' as MapUtil;
+import 'package:flutter_app_two/old/GameTile.dart';
 
 class Game extends StatefulWidget {
   @override

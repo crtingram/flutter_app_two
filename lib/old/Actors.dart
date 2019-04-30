@@ -1,4 +1,4 @@
-import '../utils/MapUtilities.dart' as MapUtil;
+import 'package:flutter_app_two/old/MapUtilities.dart' as MapUtil;
 
 class Point {
   int x, y;

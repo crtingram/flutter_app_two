@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_two/utils/MapUtilities.dart' as MapUtil;
-import 'package:flutter_app_two/models/GameTile.dart';
-import 'package:flutter_app_two/models/Actors.dart';
+import 'package:flutter_app_two/old/MapUtilities.dart' as MapUtil;
+import 'package:flutter_app_two/old/GameTile.dart';
+import 'package:flutter_app_two/old/Actors.dart';
 
 class GridListWidget extends StatefulWidget {
   @override
