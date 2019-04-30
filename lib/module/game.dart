@@ -101,14 +101,17 @@ class GameState extends State<Game> with SingleTickerProviderStateMixin {
               child: ListView(
                 children: <Widget>[
                   Container(
-                    decoration: BoxDecoration(border: Border.all()),
-                    child: ListTile(
-                      title: Text('title'),
-                      subtitle: Text('Subtitle'),
-                      contentPadding: EdgeInsets.all(0.0),
-                      dense: true,
-                    ),
-                  ),
+                      decoration: BoxDecoration(border: Border.all()),
+                      child: Container(
+                        color: Colors.blue,
+                        padding: EdgeInsets.all(2.0),
+                        child: ListTile(
+                          title: Text('title'),
+                          subtitle: Text('Subtitle'),
+                          contentPadding: EdgeInsets.all(0.0),
+                          dense: true,
+                        ),
+                      )),
                 ],
               ),
             ),
