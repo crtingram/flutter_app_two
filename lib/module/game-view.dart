@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_two/old/MapUtilities.dart' as MapUtil;
 import 'package:flutter_app_two/old/GameTile.dart';
 
-class Game extends StatefulWidget {
+class GameView extends StatefulWidget {
   @override
-  State createState() => GameState();
+  State createState() => GameViewState();
 }
 
-class GameState extends State<Game> with SingleTickerProviderStateMixin {
+class GameViewState extends State<GameView> with SingleTickerProviderStateMixin {
   List<GameTile> gameTileData;
 
-  GameState() {
+  GameViewState() {
     gameTileData = MapUtil.generateMap();
   }
 
