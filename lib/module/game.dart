@@ -56,21 +56,6 @@ class GameState extends State<Game> with SingleTickerProviderStateMixin {
                 }).toList(),
               ),
             ),
-            Flexible(
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(border: Border.all()),
-                    child: ListTile(
-                      title: Text('title'),
-                      subtitle: Text('Subtitle'),
-                      contentPadding: EdgeInsets.all(0.0),
-                      dense: true,
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Row(
               children: <Widget>[
                 RaisedButton(
@@ -111,6 +96,21 @@ class GameState extends State<Game> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ],
+            ),
+            Flexible(
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: ListTile(
+                      title: Text('title'),
+                      subtitle: Text('Subtitle'),
+                      contentPadding: EdgeInsets.all(0.0),
+                      dense: true,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
